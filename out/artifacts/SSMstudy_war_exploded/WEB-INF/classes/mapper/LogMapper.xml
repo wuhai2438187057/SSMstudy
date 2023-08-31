@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.LogMapper">
+<!--    //获取log表的用户和密码-->
+<!--       public Log getInfo(@Param("name") String name);-->
+    <select id="getInfo" resultType="Log">
+         select * from logssm where name=#{name}
+    </select>
+
+<!--    //用户注册-->
+<!--    public  Integer  insertUser(Log log);-->
+    <insert id="insertUser" >
+        insert into logssm values (null,#{name},#{password})
+    </insert>
+
+
+
+</mapper>

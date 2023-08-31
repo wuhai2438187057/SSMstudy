@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>log</title>
+</head>
+<body>
+
+<div style="text-align: center ;position:relative" >
+    <img src="static/img/003.jpg"  width=100% />
+    <div style="text-align: center; position: absolute; z-index: 2; top: 50%; left: 0; right: -30%; transform: translateY(-100%);">
+  <h1 style="color: purple">TOM牌管理系统</h1>
+    <h2>登录管理</h2>
+ <form id="LogForm" method="post" th:action="@{/loginRequest}">
+     用户名：<input id="name" name="name" th:value="${messageModel.object.name}" type="text"><br>&nbsp;&nbsp;&nbsp;
+     密码：<input id="password" name="password" th:value="${messageModel.object.password}" type="password"><br>
+     <p style="color: tomato" th:text="${messageModel.msg}"></p><br>
+     <button id="logBut" style="color: yellowgreen" type="button">登录</button>
+     <button type="button"><a style="color: springgreen" th:href="@{/register}">注册</a></button>
+ </form>
+    </div>
+</div>
+</body>
+<script>
+   let name  = document.getElementById("name");
+   let password =document.getElementById("password");
+   let logBut=document.getElementById("logBut");
+   let LogForm  =document.getElementById("LogForm");
+  logBut.onclick=function (){
+      if (name.value==""){
+          alert("请输入用户名")
+      }else if (password.value==""){
+          alert("请输入密码啊")
+      }else {
+          LogForm.submit()
+      }
+
+
+  }
+
+
+</script>
+
+
+</html>

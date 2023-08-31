@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8" >
+    <title>index</title>
+    <link rel="stylesheet" th:href="@{/static/css/mycss.css}" type="text/css">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link crossorigin="anonymous" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" rel="stylesheet">
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script crossorigin="anonymous" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script crossorigin="anonymous" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+<div class="top-section" style="padding-top: 7px;">
+    <table border="1">
+        <tr>
+            <th style="background-color: green"  >
+   <span style="text-align: left; font-size: 30px;"><strong>TOM牌管理系统</strong></span>
+            </th>
+        </tr>
+    </table>
+</div>
+
+
+<div class="left-section" >
+    <div class="list-group" >
+    <a th:href="@{/dayafter}"><img alt="头像图片" class="img-circle" th:src="@{/static/img/032.png}" title="个人空间" width="180"></a>
+     <h5  style="color: teal;text-align: center" th:text="'欢迎您,'+${session.username}"></h5>
+   <strong> <p style="color: slateblue">———————————————</p></strong>
+    <a class="list-group-item active" th:href="@{/employeeManger/1}">
+        <h4 class="list-group-item-heading">
+            🙍🏻‍♂️ 员工管理&nbsp; &nbsp; &nbsp; &nbsp;  ▶
+        </h4>
+</a>
+    <a class="list-group-item" th:href="@{/dayafter}">
+        <h4 class="list-group-item-heading">
+           💰 订单管理&nbsp; &nbsp; &nbsp; &nbsp;  ▶
+        </h4>
+    </a>
+    <a class="list-group-item active" th:href="@{/dayafter}">
+        <h4 class="list-group-item-heading">
+            📕 商品管理&nbsp; &nbsp; &nbsp; &nbsp;  ▶
+        </h4>
+    </a>
+    <a class="list-group-item" th:href="@{/dayafter}">
+        <h4 class="list-group-item-heading">
+          🔈 通知公告&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;▶
+        </h4>
+    </a>
+    </div>
+</div>
+
+
+<div class="right-section" style="position: relative" >
+
+    <div style="margin-top: 10px;margin-left:10px">
+    <span style="color: tomato ;" >
+       <strong>管理系统→<p2 th:text="${pageName}"></p2></strong>
+    </span>
+    </div>
+
+
+    <form class="form-inline" method="get" style="margin-left: 400px" th:action="@{/employeeMangerOperate}">
+        <div class="form-group">
+            <label class="sr-only" for="idName">id</label>
+            Id查询:<input class="form-control" id="idName" name="employeeId" placeholder="请输入id" type="number">
+        </div>
+
+        <div class="form-group">
+            <label class="sr-only" for="name">姓名</label>
+            姓名查询:<input class="form-control" id="name" name="employeeName" placeholder="请输入姓名" type="text">
+        </div>
+
+        <button class="btn btn-default" type="submit">查询</button>
+    </form>
+
+    <span style="margin-left: 50px">
+
+ <button class="btn btn-success"   data-target="#myModal" data-toggle="modal">添加员工</button>
+ <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+            </div>
+            <div class="modal-body" style="margin-left: 120px">
+                <form method="post" th:action="@{/employeeMangerOperate}" >
+                    姓名:<input name="empName" type="text" ><br><br>
+                    年龄:<input name="age" type="number"><br><br>
+                    性别:&nbsp;&nbsp;
+                    <label for="sex男">男</label>
+                    <input id="sex男" name="sex" type="radio" value="男">
+                    <label for="sex女">女</label>
+                    <input id="sex女" name="sex" type="radio" value="女"><br><br>
+                    邮箱:<input name="email" type="text"><br>
+                    <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal" type="button">取消</button>
+                <button  class="btn btn-primary" type="submit">确认添加</button>
+            </div>
+                </form>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+        <button class="btn btn-success" onclick="deleteSelected()" type="button">批量删除</button>
+
+    </span>
+<span >
+   <strong><p style=" margin-left: 725px;color:green" th:text="'['+${formInfo}+']'"></p></strong>
+
+    <strong><p style="padding-bottom: -350px;margin-left: 725px;color:green"  th:text="'[员工总数:'+${pageInfo.total}+']'"></p></strong>
+
+
+</span>
+
+    <div id="app1" style="margin-top: 5px ;margin-left:20px;margin-right: 20px;background-color: ghostwhite ;height: 65%" >
+      <table  class="table table-bordered" id="table">
+         <tr>
+             <th>全选 <input  id="ids1" type="checkbox"  ></th>
+             <th>ID</th>
+             <th>姓名</th>
+             <th>年龄</th>
+             <th>性别</th>
+             <th>邮件</th>
+             <th>操作</th>
+         </tr>
+          <tr  th:each="data :${pageInfo.list}">
+              <td><input class="checkbox" name="ids2"  th:value="${data.empId}" type="checkbox"></td>
+              <td th:text="${data.empId}"></td>
+              <td th:text="${data.empName}"></td>
+              <td th:text="${data.age}"></td>
+              <td th:text="${data.sex}"></td>
+              <td th:text="${data.email}"></td>
+              <td>
+                  <a  class="abutn" th:href="@{'/employeeMangerOperateUpdatePage/'+${data.empId}}"> 修改</a>
+                  <a  @click="deleteEmployee" class="abutn" th:href="@{'/employeeMangerOperate/'+${data.empId}}" > 删除</a>
+<!--                  这两个要restful风格-->
+              </td>
+          </tr>
+      </table>
+     <form id="delete_form" method="post">
+         <input name="_method" type="hidden" value="delete">
+     </form>
+     <div style="text-align: center">
+          <a th:href="@{/employeeManger/1}" th:if="${pageInfo.hasPreviousPage}">首页</a>
+         <a th:href="@{'/employeeManger/'+${pageInfo.prePage}}" th:if="${pageInfo.hasPreviousPage}">上一页</a>
+         <span th:each="num :${pageInfo.navigatepageNums}">
+             <a style="color: blue" th:href="@{'/employeeManger/'+${num}}" th:if="${pageInfo.pageNum==num}" th:text="'['+${num}+']'"></a>
+             <a style="color: green" th:href="@{'/employeeManger/'+${num}}" th:if="${pageInfo.pageNum!=num}" th:text="${num}"></a>
+         </span>
+         <a th:href="@{'/employeeManger/'+${pageInfo.nextPage}}" th:if="${pageInfo.hasNextPage}">下一页</a>
+         <a th:href="@{'/employeeManger/'+${pageInfo.pages}}" th:if="${pageInfo.hasNextPage}">末页</a>
+     </div>
+
+ </div>
+
+</div>
+
+</body>
+
+<script th:src="@{/static/js/vue.js}" type="text/javascript"></script>
+<script th:src="@{/static/js/axios.min.js}" type="text/javascript"></script>
+<script>
+
+    new Vue({
+        el:"#app1",
+        methods:{
+            deleteEmployee:function (event){
+                var delete_form = document.getElementById("delete_form");
+                 delete_form.action=event.target.href;
+                 delete_form.submit();
+                 event.preventDefault();
+            }
+        }
+
+    })
+
+    $("#ids1").click(function(){//给全选按钮加上点击事件
+        var xz = $(this).prop("checked");//判断全选按钮的选中状态
+        var ck = $(".checkbox").prop("checked",xz);  //让class名为qx的选项的选中状态和全选按钮的选中状态一致。
+    })
+
+
+    function deleteSelected (){
+        var allSelectedItems =document.getElementsByClassName("checkbox");
+        var selectedItems=[];
+        var ids ;
+        if (confirm("您确定要删除吗")) {
+            for (let i = 0; i < allSelectedItems.length; i++) {
+                if (allSelectedItems[i].checked==true) {
+                    selectedItems.push(allSelectedItems[i].value);
+                }
+            }
+            if (selectedItems.length==0){
+                alert("至少选择删除一条数据")
+                return;
+            }else {
+                alert("已选择删除"+selectedItems.length+"条数据")
+            }
+
+            ids=selectedItems.toString();
+            axios({
+                method: "get",
+                url: `http://localhost:8080/SSMstudy/employeeMangerOPeratedelBatch/${ids}`,
+            }).then(function(response) {
+                if (response.status === 200) {
+                    // 删除成功的处理逻辑
+                    console.log("删除成功");
+                    // 刷新页面
+                    // 这里依然存在疑问，因为将后台的处理重定向到employeeManger/1后反而正常，直接返回index是不行的
+                    location.replace("http://localhost:8080/SSMstudy/employeeManger/1");
+                } else {
+                    // 删除失败的处理逻辑
+                    console.log("删除失败");
+                }
+            }).catch(function(error) {
+                // 错误处理逻辑
+                console.log("请求出错"+error);
+            });
+        }
+          }
+
+
+
+
+
+
+</script>
+
+
+</html>
