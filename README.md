@@ -1,5 +1,5 @@
 # SSMstudy
-一个SSM的员工管理系统。
+一个SSM的员工管理系统，但是bootStrap用的是CDN，没有解决跨域问题。
 刚开始用Git，不熟练。
 下面是图片
 <img width="954" alt="7" src="https://github.com/wuhai2438187057/SSMstudy/assets/109608160/3e45e582-ff4a-4b0c-af6f-4ac42acecbcc">
